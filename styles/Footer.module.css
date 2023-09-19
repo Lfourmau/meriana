@@ -1,0 +1,8 @@
+.footer{
+	@apply flex justify-center items-center m-0 w-screen min-h-[5vh] bg-cyan text-white;
+  }
+
+.footerlink{
+	margin: 0 30px 0 30px;
+}
+  

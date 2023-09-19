@@ -1,0 +1,15 @@
+@keyframes fadeIn {
+	0% {
+	  opacity: 0;
+	}
+	100% {
+	  opacity: 1;
+	}
+  }
+
+.success{
+	@apply animate-fadeIn p-6 bg-green-600 text-white w-[100%] sticky top-0 transition-all duration-500 rounded
+}
+.fail{
+	@apply animate-fadeIn p-6 bg-red-600 text-white w-[100%] sticky top-0 transition-all duration-500 rounded
+}

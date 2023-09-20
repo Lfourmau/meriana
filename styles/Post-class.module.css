@@ -30,12 +30,6 @@
 	@apply flex self-end
 }
 
-.wronganswer{
-	@apply font-bold w-[100%] bg-wrong p-1 rounded my-1
-}
-.goodanswer{
-	@apply font-bold w-[100%] bg-right p-1 rounded my-1
-}
 
 .recap{
 	@apply min-h-screen p-4 flex flex-col items-center justify-center 
@@ -50,14 +44,9 @@
 	@apply w-[97%]
 }
 .content{
-	@apply bg-lighterdark p-4 rounded-lg border
+	@apply bg-lighterdark p-4 rounded-lg border break-words
 }
-.questionCard{
-	@apply my-4 bg-lighterdark rounded-lg border p-4 flex-col items-center text-center w-[30%];
-}
-.ul{
-	@apply list-none m-0 p-0
-}
+
 
 .quizzs{
 	@apply flex flex-col justify-center items-center;
@@ -70,10 +59,4 @@
 }
 .icon{
 	@apply mr-3
-}
-.cross{
-	@apply text-red-600 font-bold text-left mt-0 cursor-pointer;
-}
-.cross:hover{
-	@apply text-red-800
 }

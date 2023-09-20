@@ -10,6 +10,6 @@
 }
 
 .navbarlink:hover{
-	@apply bg-dark transition ease-in duration-500;
+	@apply bg-dark transition ease-in duration-300;
 }
 

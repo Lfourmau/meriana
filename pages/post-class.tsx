@@ -2,11 +2,14 @@ import styles from '../styles/Post-class.module.css';
 import { useState } from 'react';
 import { Answer, Question } from '../types/question';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBook, faFeather, faMedal, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faBook, faFeather, faMedal } from '@fortawesome/free-solid-svg-icons';
 import Button from '../components/linkButton';
 import LinkButton from '../components/linkButton';
 import Alert from '../components/Alert';
-
+import QuestionCard from '../components/questionCard';
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+import app from "../components/firebase"
+import Cours from "../types/cours"
 
 export default function PostclassName() {
   const [title, setTitle] = useState<string>('');
@@ -19,6 +22,7 @@ export default function PostclassName() {
   const [chapter, setChapter] = useState('');
   const [questions, setQuestions] = useState<Question[]>([]);
   const [showAlert, setShowAlert] = useState(false);
+
 
   function deleteQuestion(index) {
     const updatedQuestions = [...questions];
@@ -87,6 +91,29 @@ export default function PostclassName() {
     content = content.replace(/\n\r?/g, '<br />')
     setContent(content);
   };
+
+  async function postDatas(){
+    try {
+      const db = getFirestore(app);
+      const myCollection = collection(db, "Cours");
+  
+      const datas = {
+        level: level,
+        subject: subject,
+        chapter: chapter,
+        title: title,
+        content: content,
+        questions: questions,
+      };
+  
+      console.log("Données à ajouter :", datas); // Ajoutez ceci pour vérifier les données à ajouter
+  
+      const docRef = await addDoc(myCollection, datas);
+      console.log("Document ajouté avec ID :", docRef.id);
+    } catch (erreur) {
+      console.error("Erreur lors de l'ajout du document :", erreur);
+    }
+  }
 
   return (
     <>
@@ -182,18 +209,10 @@ export default function PostclassName() {
         </div>
         <div className={styles.recapQuestions}>
           {questions.map((question, index) => (
-            <div key={index} className={styles.questionCard}>
-              <h3 onClick={() => deleteQuestion(index)} className={styles.cross}><FontAwesomeIcon icon={faTrash}></FontAwesomeIcon></h3>
-              <h4 key={question.rule}>{question.rule}</h4>
-              <ul className={styles.ul}>
-                {question.answers.map((answer, index) => (
-                    <li className={answer.goodAnswer ? styles.goodanswer : styles.wronganswer} key={index}>{answer.answer}</li>
-                  ))}
-              </ul>
-            </div>
+           <QuestionCard index={index} question={question} deleteQuestion={deleteQuestion}></QuestionCard>
           ))}
         </div>
-        <LinkButton color="orange" text="Poster ce contenu"></LinkButton>
+        <LinkButton onClick={postDatas} color="orange" text="Poster ce contenu"></LinkButton>
       </div>
     </>
   );

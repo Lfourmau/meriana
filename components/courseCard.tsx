@@ -2,7 +2,7 @@ import styles from "../styles/CourseCard.module.css"
 
 export default function CourseCard(props){
 	return (
-		<div className={styles.card}>
+		<div className={styles.card} onClick={props.onClick}>
 			<div className={styles.mainInfos}>
 				<h2 className={styles.title}>{props.course.title}</h2>
 				<p className={styles.p}>{props.course.content}</p>

@@ -9,7 +9,7 @@ export default function Navbar() {
         <ul className={styles.ul}>
           <Link className={styles.navbarlink} href={"/post-class"}>Cours</Link>
           <Link className={styles.navbarlink} href={"/post-reward"}>Cartes cadeaux</Link>
-          <Link className={styles.navbarlink} href={"/"}>Admin</Link>
+          <Link className={styles.navbarlink} href={"/allCourses"}>Tous les cours</Link>
         </ul>
       </nav>
     </div>

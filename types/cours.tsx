@@ -1,4 +1,4 @@
-import { Answer } from "./question";
+import { Question } from "./question";
 
 export type Cours = {
 	level: string;
@@ -6,5 +6,5 @@ export type Cours = {
 	chapter: string;
 	title: string;
 	content: string;
-	questions: Answer[]
+	questions: Question[]
   };

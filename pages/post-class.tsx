@@ -9,7 +9,7 @@ import Alert from '../components/Alert';
 import QuestionCard from '../components/questionCard';
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import app from "../components/firebase"
-import Cours from "../types/cours"
+import { Cours } from "../types/cours"
 
 export default function PostclassName() {
   const [title, setTitle] = useState<string>('');
@@ -97,7 +97,7 @@ export default function PostclassName() {
       const db = getFirestore(app);
       const myCollection = collection(db, "Cours");
   
-      const datas = {
+      const datas:Cours = {
         level: level,
         subject: subject,
         chapter: chapter,

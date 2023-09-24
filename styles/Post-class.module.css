@@ -23,7 +23,7 @@
 }
 
 .selects{
-	@apply flex flex-row justify-between mb-6 min-w-[100%];
+	@apply flex flex-row justify-around mb-6 min-w-[100%];
 }
 
 .buttons{

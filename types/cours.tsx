@@ -7,4 +7,5 @@ export type Cours = {
 	title: string;
 	content: string;
 	questions: Question[]
+	id?:string
   };

@@ -4,7 +4,7 @@ import app from "../components/firebase"
 import { useEffect, useState } from "react";
 import CourseCard from "../components/courseCard";
 import styles from "../styles/Post-class.module.css"
-import EditCourse from "../components/editCourse";
+import Postclass from "./post-class";
 
 
 export default function AllCourses(){
@@ -150,7 +150,7 @@ export default function AllCourses(){
 			</>
 		)}
 		{editmode == true && (
-			<EditCourse course={courseToEdit} onClick={() => switchEditmode()}></EditCourse>
+			<Postclass course={courseToEdit} editMode={true}></Postclass>
 		)}
 		</>
 	)

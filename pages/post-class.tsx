@@ -1,5 +1,5 @@
 import styles from '../styles/Post-class.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Answer, Question } from '../types/question';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook, faFeather, faMedal } from '@fortawesome/free-solid-svg-icons';
@@ -7,11 +7,11 @@ import Button from '../components/linkButton';
 import LinkButton from '../components/linkButton';
 import Alert from '../components/Alert';
 import QuestionCard from '../components/questionCard';
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, doc, updateDoc } from "firebase/firestore";
 import app from "../components/firebase"
 import { Cours } from "../types/cours"
 
-export default function PostclassName() {
+export default function Postclass(props) {
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [rule, setRule] = useState<string>('');
@@ -23,6 +23,17 @@ export default function PostclassName() {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [showAlert, setShowAlert] = useState(false);
 
+  useEffect(() => {
+		if (props.editMode == true){
+      setLevel(props.course.level)
+      setSubject(props.course.subject)
+      setChapter(props.course.chapter)
+      setQuestions(props.course.questions)
+      setContent(props.course.content)
+      setTitle(props.course.title)
+      console.log(props.course)
+    }
+	  }, []); 
 
   function deleteQuestion(index) {
     const updatedQuestions = [...questions];
@@ -112,6 +123,29 @@ export default function PostclassName() {
       console.log("Document ajouté avec ID :", docRef.id);
     } catch (erreur) {
       console.error("Erreur lors de l'ajout du document :", erreur);
+    }
+  }
+
+  async function editDatas(){
+    const db = getFirestore(app);
+    const documentRef = doc(db, 'Cours', props.course.id); // Remplacez avec votre collection et ID de document
+
+    const datas:Cours = {
+      level: level,
+      subject: subject,
+      chapter: chapter,
+      title: title,
+      content: content,
+      questions: questions,
+    };
+
+    console.log("Données à ajouter :", datas); // Ajoutez ceci pour vérifier les données à ajouter
+  
+    try {
+      await updateDoc(documentRef, datas);
+      console.log('Document mis à jour avec succès !');
+    } catch (erreur) {
+      console.error('Erreur lors de la mise à jour du document :', erreur);
     }
   }
 
@@ -213,6 +247,9 @@ export default function PostclassName() {
           ))}
         </div>
         <LinkButton onClick={postDatas} color="orange" text="Poster ce contenu"></LinkButton>
+        { props.editMode == true &&
+          <LinkButton onClick={editDatas} color="cyan" text="Editer ce contenu"></LinkButton>
+        }
       </div>
     </>
   );

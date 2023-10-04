@@ -1,3 +1,4 @@
+import ReactMarkdown from 'react-markdown';
 import { useEffect, useState } from 'react';
 import { Answer, Question } from '../types/question';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,6 +10,18 @@ import QuestionCard from '../components/questionCard';
 import { getFirestore, collection, addDoc, doc, updateDoc } from "firebase/firestore";
 import app from "../components/firebase"
 import { Cours } from "../types/cours"
+import dynamic from "next/dynamic";
+import TurndownService from 'turndown';
+
+
+const turndownService = new TurndownService({
+  //configuration de Turndown ici
+  headingStyle: 'atx',
+});
+
+const ReactQuill = dynamic(import('react-quill'), { ssr: false })
+import 'react-quill/dist/quill.snow.css'; // Importez le CSS de Quill
+
 
 export default function Postclass(props) {
   const [title, setTitle] = useState<string>('');
@@ -21,6 +34,7 @@ export default function Postclass(props) {
   const [chapter, setChapter] = useState('');
   const [questions, setQuestions] = useState<Question[]>([]);
   const [showAlert, setShowAlert] = useState(false);
+  const [markdownPreview, setMarkdownPreview] = useState('');
 
   useEffect(() => {
 		if (props.editMode == true){
@@ -33,6 +47,10 @@ export default function Postclass(props) {
       console.log(props.course)
     }
 	  }, []); 
+
+  function convertHtmlToMarkdown(html) {
+    return turndownService.turndown(html);
+  }
 
   function deleteQuestion(index) {
     const updatedQuestions = [...questions];
@@ -96,9 +114,11 @@ export default function Postclass(props) {
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
   };
-  const handleContentChange = (event) => {
-    let content = event.target.value
-    content = content.replace(/\n\r?/g, '<br />')
+  const handleContentChange = (htmlContent) => {
+    let content = htmlContent
+    const markdownContent = convertHtmlToMarkdown(content);
+    // Mettre à jour la prévisualisation Markdown
+    setMarkdownPreview(markdownContent);
     setContent(content);
   };
 
@@ -207,12 +227,14 @@ export default function Postclass(props) {
             </div>
             <div className="mb-6 min-w-[100%]">
               <label htmlFor="conntent" className='global_label'>Content (markdown format)</label>
-              <textarea wrap='hard' value={content} onChange={handleContentChange} id="content" className='global_input' rows={10} cols={50} placeholder="cours format markdown. Le markdown pur sera stocké puis mis en forme au moment de l'affichage sur l'app" required/>
+              {/* <textarea wrap='hard' value={content} onChange={handleContentChange} id="content" className='global_input' rows={10} cols={50} placeholder="cours format markdown. Le markdown pur sera stocké puis mis en forme au moment de l'affichage sur l'app" required/> */}
+              <ReactQuill value={content} onChange={handleContentChange} />
             </div>
             <LinkButton href="#quizzs" color="third" text="Prochaine étape"></LinkButton>
          </form>
       </div>
-
+      <div>
+      </div>
       <div id='quizzs' className="flex flex-col justify-center items-center min-h-screen">
         <form className="w-[50vw] flex flex-col items-center justify-center min-h-screen">
             <div className="mb-6 min-w-[100%]">
@@ -244,12 +266,13 @@ export default function Postclass(props) {
         </div>
         <div className="w-[97%]">
           <h2 className="flex mb-3">{title}</h2>
-          <p className="bg-lighterdark p-4 rounded-lg border break-words">{content}</p>
+          <ReactMarkdown skipHtml={false}>{markdownPreview}</ReactMarkdown>
+          {/* <p className="bg-lighterdark p-4 rounded-lg border break-words">{markdownPreview}</p> */}
         </div>
         <div className="flex justify-around flex-wrap w-[100%]">
           {questions.map((question, index) => (
-           <QuestionCard index={index} question={question} deleteQuestion={deleteQuestion}></QuestionCard>
-          ))}
+            <QuestionCard index={index} question={question} deleteQuestion={deleteQuestion}></QuestionCard>
+            ))}
         </div>
         <LinkButton onClick={postDatas} color="third" text="Poster ce contenu"></LinkButton>
         { props.editMode == true &&

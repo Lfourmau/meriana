@@ -4,6 +4,6 @@ import Link from 'next/link';
 
 export default function LinkButton(props) {
   return (
-	<a onClick={props.onClick} href={props.href} className={props.color=='cyan' ? styles.cyanbutton : styles.greenbutton}>{props.text}</a> 
+	<a onClick={props.onClick} href={props.href} className={props.color=='third' ? styles.thirdbutton : styles.greenbutton}>{props.text}</a> 
   );
 }

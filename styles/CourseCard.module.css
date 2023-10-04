@@ -1,19 +1,23 @@
 .card{
-	@apply bg-lighterdark m-0 w-screen p-6 flex items-center justify-between cursor-pointer;
-	border-top: 1px solid white;
-	border-bottom: 1px solid white;
+	@apply bg-opacity-50 mb-5 rounded-lg bg-lighterdark m-0 w-[22%] p-6 flex flex-col items-start justify-between cursor-pointer overflow-ellipsis;
+	border: 1px solid white;
+	transition: border 0.3s ease-in;
 }
 .card:hover{
-	@apply bg-cyan
-}
-.secondaryInfos{
-	@apply flex flex-col justify-around items-end
+	border: 1px solid orange;
 }
 
-.secondaryInfos p{
+.mainInfos{
+	@apply max-w-[100%]
+}
+.thirdInfos{
+	@apply flex flex-col justify-around items-end self-end
+}
+
+.thirdInfos p{
 	@apply font-bold
 }
 
-.title, .p{
-	@apply m-0
+.p{
+	@apply m-0 max-w-[100%] overflow-hidden whitespace-normal
 }

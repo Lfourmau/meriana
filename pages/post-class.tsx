@@ -1,4 +1,3 @@
-import styles from '../styles/Post-class.module.css';
 import { useEffect, useState } from 'react';
 import { Answer, Question } from '../types/question';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -116,7 +115,10 @@ export default function Postclass(props) {
         content: content,
         questions: questions,
       };
-  
+      setShowAlert(true);
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 3000); // 
       console.log("Données à ajouter :", datas); // Ajoutez ceci pour vérifier les données à ajouter
   
       const docRef = await addDoc(myCollection, datas);
@@ -144,6 +146,10 @@ export default function Postclass(props) {
     try {
       await updateDoc(documentRef, datas);
       console.log('Document mis à jour avec succès !');
+      setShowAlert(true);
+     setTimeout(() => {
+       setShowAlert(false);
+     }, 3000); // 
     } catch (erreur) {
       console.error('Erreur lors de la mise à jour du document :', erreur);
     }
@@ -154,12 +160,12 @@ export default function Postclass(props) {
     {showAlert && (
         <Alert text="Opération réalisée avec succès" status="success"></Alert>
     )}
-      <div id='step1' className={styles.classInfos}>
-        <form className={styles.form}>
-          <div className={styles.selects}>
+      <div id='step1' className="min-h-screen flex flex-col justify-center items-center">
+        <form className="w-[50vw] flex flex-col items-center justify-center min-h-screen">
+          <div className="flex flex-row justify-around mb-6 min-w-[100%]">
             <div>
-              <label htmlFor="countries" className={styles.label}>Class</label>
-              <select id="countries" className={styles.select} value={level} onChange={handleLevelChange}>
+              <label htmlFor="level" className='global_label'>Class</label>
+              <select id="level" className="global_select" value={level} onChange={handleLevelChange}>
                 <option>Select</option>
                 <option>6e</option>
                 <option>5e</option>
@@ -168,8 +174,8 @@ export default function Postclass(props) {
               </select>
             </div>
             <div>
-              <label htmlFor="countries" className={styles.label}>Subject</label>
-              <select id="countries" className={styles.select} value={subject} onChange={handleSubjectChange}>
+              <label htmlFor="subject" className='global_label'>Subject</label>
+              <select id="subject" className="global_select" value={subject} onChange={handleSubjectChange}>
                 <option>Select</option>
                 <option>Maths</option>
                 <option>Francais</option>
@@ -183,8 +189,8 @@ export default function Postclass(props) {
               </select>
             </div>
             <div>
-              <label htmlFor="countries" className={styles.label}>Chapter</label>
-              <select id="countries" className={styles.select} value={chapter} onChange={handleChapterChange}>
+              <label htmlFor="chapter" className='global_label'>Chapter</label>
+              <select id="chapter" className="global_select" value={chapter} onChange={handleChapterChange}>
                 <option>Select</option>
                 <option>Chapitre 1</option>
                 <option>Chapitre 2</option>
@@ -195,60 +201,59 @@ export default function Postclass(props) {
               </select>
             </div> 
           </div>
-            <div className={styles.inputgroup}>
-              <label htmlFor="Title" className={styles.label} >Title</label>
-              <input type="text" id="Title" className={styles.input} value={title} onChange={handleTitleChange} placeholder="Titre du cours" required/>
+            <div className="mb-6 min-w-[100%]">
+              <label htmlFor="Title" className='global_label' >Title</label>
+              <input type="text" id="Title" className='global_input' value={title} onChange={handleTitleChange} placeholder="Titre du cours" required/>
             </div>
-            <div className={styles.inputgroup}>
-              <label htmlFor="conntent" className={styles.label}>Content (markdown format)</label>
-              <textarea wrap='hard' value={content} onChange={handleContentChange} id="content" className={styles.input} rows={10} cols={50} placeholder="cours format markdown. Le markdown pur sera stocké puis mis en forme au moment de l'affichage sur l'app" required/>
+            <div className="mb-6 min-w-[100%]">
+              <label htmlFor="conntent" className='global_label'>Content (markdown format)</label>
+              <textarea wrap='hard' value={content} onChange={handleContentChange} id="content" className='global_input' rows={10} cols={50} placeholder="cours format markdown. Le markdown pur sera stocké puis mis en forme au moment de l'affichage sur l'app" required/>
             </div>
-            <LinkButton href="#quizzs" color="cyan" text="Prochaine étape"></LinkButton>
+            <LinkButton href="#quizzs" color="third" text="Prochaine étape"></LinkButton>
          </form>
       </div>
 
-      <div id='quizzs' className={styles.quizzs}>
-        <form className={styles.form}>
-
-            <div className={styles.inputgroup}>
-              <label htmlFor="rule" className={styles.label}>Consigne</label>
-              <input onChange={handleRule} value={rule} type="text" id="rule" className={styles.input} placeholder="Énoncé de la question" required/>
+      <div id='quizzs' className="flex flex-col justify-center items-center min-h-screen">
+        <form className="w-[50vw] flex flex-col items-center justify-center min-h-screen">
+            <div className="mb-6 min-w-[100%]">
+              <label htmlFor="rule" className='global_label'>Consigne</label>
+              <input onChange={handleRule} value={rule} type="text" id="rule" className='global_input' placeholder="Énoncé de la question" required/>
             </div>
-            <div className={styles.inputgroup}>
-              <label htmlFor="Rightanswers" className={styles.label}>Bonnes réponses</label>
-              <input onChange={handleGoodanswers} value={goodanswers} type="text" id="Rightanswers" className={styles.input} placeholder="Bonne(s) réponse(s). Séparées par des virgules." required/>
+            <div className="mb-6 min-w-[100%]">
+              <label htmlFor="Rightanswers" className='global_label'>Bonnes réponses</label>
+              <input onChange={handleGoodanswers} value={goodanswers} type="text" id="Rightanswers" className='global_input' placeholder="Bonne(s) réponse(s). Séparées par des virgules." required/>
             </div>
-            <div className={styles.inputgroup}>
-              <label htmlFor="Wronganswers" className={styles.label}>Mauvaises réponses</label>
-              <input onChange={handleWronganswers} value={wronganswers} type="text" id="Wronganswers" className={styles.input} placeholder="Mauvaise(s) réponse(s). Séparées par des virgules." required/>
+            <div className="mb-6 min-w-[100%]">
+              <label htmlFor="Wronganswers" className='global_label'>Mauvaises réponses</label>
+              <input onChange={handleWronganswers} value={wronganswers} type="text" id="Wronganswers" className='global_input' placeholder="Mauvaise(s) réponse(s). Séparées par des virgules." required/>
             </div>
-            <div className={styles.buttons}>
-              <LinkButton href="#step1" color="cyan" text="Etape précédente"></LinkButton>
-              <LinkButton href="#recap" color="cyan" text="Etape suivante"></LinkButton>
+            <div className="flex self-end">
+              <LinkButton href="#step1" color="third" text="Etape précédente"></LinkButton>
+              <LinkButton href="#recap" color="third" text="Etape suivante"></LinkButton>
               <LinkButton onClick={addQuestion} color="green" text="Ajouter la question"></LinkButton>         
             </div>
         </form>
       </div>
 
-      <div id='recap' className={styles.recap}>
-        <h1>Récapitulatif du contenu</h1>
-        <div className={styles.recapInfos}>
-          <h3 className={styles.iconAndText}><FontAwesomeIcon className={styles.icon} icon={faMedal} />{level}</h3>
-          <h3 className={styles.iconAndText}><FontAwesomeIcon className={styles.icon} icon={faFeather} />{subject}</h3>
-          <h3 className={styles.iconAndText}><FontAwesomeIcon className={styles.icon} icon={faBook} />{chapter}</h3>
+      <div id='recap' className="min-h-screen p-4 flex flex-col items-center justify-center ">
+        <h1 className='mb-5'>Récapitulatif du contenu</h1>
+        <div className="flex justify-around w-1/2">
+          <h3 className="flex"><FontAwesomeIcon className="w-3.5 h-3.5 mx-2" icon={faMedal} />{level}</h3>
+          <h3 className="flex"><FontAwesomeIcon className="w-3.5 h-3.5 mx-2" icon={faFeather} />{subject}</h3>
+          <h3 className="flex"><FontAwesomeIcon className="w-3.5 h-3.5 mx-2" icon={faBook} />{chapter}</h3>
         </div>
-        <div className={styles.recapContent}>
-          <h2 className={styles.iconAndText}>{title}</h2>
-          <p className={styles.content}>{content}</p>
+        <div className="w-[97%]">
+          <h2 className="flex mb-3">{title}</h2>
+          <p className="bg-lighterdark p-4 rounded-lg border break-words">{content}</p>
         </div>
-        <div className={styles.recapQuestions}>
+        <div className="flex justify-around flex-wrap w-[100%]">
           {questions.map((question, index) => (
            <QuestionCard index={index} question={question} deleteQuestion={deleteQuestion}></QuestionCard>
           ))}
         </div>
-        <LinkButton onClick={postDatas} color="orange" text="Poster ce contenu"></LinkButton>
+        <LinkButton onClick={postDatas} color="third" text="Poster ce contenu"></LinkButton>
         { props.editMode == true &&
-          <LinkButton onClick={editDatas} color="cyan" text="Editer ce contenu"></LinkButton>
+          <LinkButton onClick={editDatas} color="third" text="Editer ce contenu"></LinkButton>
         }
       </div>
     </>

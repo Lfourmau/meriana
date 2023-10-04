@@ -1,5 +1,5 @@
 .navbar{
-	@apply flex justify-center items-center text-white m-0 w-screen min-h-[5vh] bg-cyan p-0;
+	@apply flex justify-center items-center text-white m-0 w-screen min-h-[5vh] bg-third p-0;
   }
   
 .ul{
@@ -10,6 +10,6 @@
 }
 
 .navbarlink:hover{
-	@apply bg-dark transition ease-in duration-300;
+	@apply bg-primary transition ease-in duration-300;
 }
 

@@ -1,5 +1,5 @@
 .footer{
-	@apply flex justify-center items-center m-0 w-screen min-h-[5vh] bg-cyan text-white;
+	@apply flex justify-center items-center m-0 w-screen min-h-[5vh] bg-third text-white;
   }
 
 .footerlink{

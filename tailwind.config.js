@@ -1,14 +1,21 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./pages/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}"],
+  content: [
+    './app/**/*.{js,ts,jsx,tsx,mdx}', // Note the addition of the `app` directory.
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+ 
+    // Or if using `src` directory:
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
   theme: {
     extend:{
       colors: {
         transparent: 'transparent',
-        'dark': '#171D23',
+        'primary': '#171D23',
         'lighterdark': '#788488',
-        'cyan': '#30DADA',
-        'orange': '#F1861C',
+        'third': '#30DADA',
+        'third': '#F1861C',
         'right': '#1FADAD',
         'wrong': '#D61C46',
       },

@@ -1,11 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   padding: 0;
   margin: 0;
-  @apply bg-dark text-white
+  @apply bg-primary text-white
 }
 html{
   scroll-behavior: smooth;
-
+  margin:0;padding: 0;
 }
 
 a {
@@ -24,7 +28,20 @@ img {
 
 .container{
   min-height: 100vh;
+  min-width: 100vw;
   display: flex;flex-direction: column;
   justify-content: space-between;
   align-items: center;
+}
+
+.global_input{
+	@apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white;
+}
+
+.global_label{
+	@apply block mb-2 text-sm font-medium min-w-[100%];
+}
+
+.global_select{
+  @apply bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white min-w-[200px]
 }

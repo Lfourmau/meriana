@@ -3,8 +3,8 @@ import { collection, getDocs, getFirestore, query, where } from "firebase/firest
 import app from "../components/firebase"
 import { useEffect, useState } from "react";
 import CourseCard from "../components/courseCard";
-import styles from "../styles/Post-class.module.css"
 import Postclass from "./post-class";
+import styles from '../styles/AllCourses.module.css'
 
 
 export default function AllCourses(){
@@ -100,23 +100,23 @@ export default function AllCourses(){
 
 
 	return (
-		<>
-			{editmode == false && (	
-				<>
-				<div className={styles.selects}>
+		<div className="min-h-[100vh]">
+		  {editmode == false && (	
+			<>
+			  <div className='flex flex-row justify-around mb-6 min-w-[100%] mt-6'>
 				<div>
-				<label htmlFor="level" className={styles.label}>Class</label>
-				<select id="level" className={styles.select} value={level} onChange={handleLevelChange}>
+				  <label htmlFor="level" className='global_label'>Class</label>
+				  <select id="level" className='global_select' value={level} onChange={handleLevelChange}>
 					<option value="All">All</option>
 					<option value="6e">6e</option>
 					<option value="5e">5e</option>
 					<option value="4e">4e</option>
 					<option value="3e">3e</option>
-				</select>
+				  </select>
 				</div>
 				<div>
-				<label htmlFor="subject" className={styles.label}>Subject</label>
-				<select id="subject" className={styles.select} value={subject} onChange={handleSubjectChange}>
+				  <label htmlFor="subject" className='global_label'>Subject</label>
+				  <select id="subject" className='global_select' value={subject} onChange={handleSubjectChange}>
 					<option value="All">All</option>
 					<option value="Maths">Maths</option>
 					<option value="Francais">Francais</option>
@@ -127,11 +127,11 @@ export default function AllCourses(){
 					<option value="Anglais">Anglais</option>
 					<option value="Espagnol">Espagnol</option>
 					<option value="">EPS mdr</option>
-				</select>
+				  </select>
 				</div>
 				<div>
-				<label htmlFor="chapter" className={styles.label}>Chapter</label>
-				<select id="chapter" className={styles.select} value={chapter} onChange={handleChapterChange}>
+				  <label htmlFor="chapter" className='global_label'>Chapter</label>
+				  <select id="chapter" className='global_select' value={chapter} onChange={handleChapterChange}>
 					<option value="All">All</option>
 					<option value="Chapitre 1">Chapitre 1</option>
 					<option value="Chapitre 2">Chapitre 2</option>
@@ -139,19 +139,19 @@ export default function AllCourses(){
 					<option value="Chapitre 4">Chapitre 4</option>
 					<option value="Chapitre 5">Chapitre 5</option>
 					<option value="Chapitre 6">Chapitre 6</option>
-				</select>
+				  </select>
 				</div> 
-			</div>
-				<div className={styles.allCards}>
+			  </div>
+			  <div className={styles.allCards}>
 				{allCourses.map((course, index) => (
-					<CourseCard key={index} course={course} onClick={() => switchEditmode(course)}></CourseCard>
-					))}
-				</div>
+				  <CourseCard key={index} course={course} onClick={() => switchEditmode(course)}></CourseCard>
+				))}
+			  </div>
 			</>
-		)}
-		{editmode == true && (
+		  )}
+		  {editmode == true && (
 			<Postclass course={courseToEdit} editMode={true}></Postclass>
-		)}
-		</>
-	)
-}
+		  )}
+		</div>
+	  )
+}  

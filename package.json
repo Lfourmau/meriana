@@ -17,6 +17,7 @@
     "react-markdown": "^9.0.0",
     "react-quill": "^2.0.0",
     "sass": "^1.67.0",
+    "tinymce": "^6.7.0",
     "turndown": "^7.1.2"
   },
   "engines": {

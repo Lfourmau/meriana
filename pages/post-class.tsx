@@ -114,11 +114,10 @@ export default function Postclass(props) {
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
   };
-  const handleContentChange = (htmlContent) => {
-    let content = htmlContent
-    const markdownContent = convertHtmlToMarkdown(content);
+  const handleContentChange = (event) => {
+    let content = event.target.value
+    // const markdownContent = convertHtmlToMarkdown(content);
     // Mettre à jour la prévisualisation Markdown
-    setMarkdownPreview(markdownContent);
     setContent(content);
   };
 
@@ -227,8 +226,8 @@ export default function Postclass(props) {
             </div>
             <div className="mb-6 min-w-[100%]">
               <label htmlFor="conntent" className='global_label'>Content (markdown format)</label>
-              {/* <textarea wrap='hard' value={content} onChange={handleContentChange} id="content" className='global_input' rows={10} cols={50} placeholder="cours format markdown. Le markdown pur sera stocké puis mis en forme au moment de l'affichage sur l'app" required/> */}
-              <ReactQuill value={content} onChange={handleContentChange} />
+              <textarea wrap='hard' value={content} onChange={handleContentChange} id="content" className='global_input' rows={10} cols={50} placeholder="cours format markdown. Le markdown pur sera stocké puis mis en forme au moment de l'affichage sur l'app" required/>
+              {/* <ReactQuill value={content} onChange={handleContentChange} /> */}
             </div>
             <LinkButton href="#quizzs" color="third" text="Prochaine étape"></LinkButton>
          </form>
@@ -266,7 +265,7 @@ export default function Postclass(props) {
         </div>
         <div className="w-[97%]">
           <h2 className="flex mb-3">{title}</h2>
-          <ReactMarkdown skipHtml={false}>{markdownPreview}</ReactMarkdown>
+          <ReactMarkdown className='markdown'>{content}</ReactMarkdown>
           {/* <p className="bg-lighterdark p-4 rounded-lg border break-words">{markdownPreview}</p> */}
         </div>
         <div className="flex justify-around flex-wrap w-[100%]">

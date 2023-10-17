@@ -1,8 +1,11 @@
 .card{
-	@apply bg-opacity-50 mb-5 rounded-lg bg-lighterdark m-0 w-[22%] p-6 flex flex-col items-start justify-between cursor-pointer overflow-ellipsis;
+	@apply bg-opacity-50 mb-5 rounded-lg bg-lighterdark m-0 w-[22%] p-6 flex flex-col items-start justify-between cursor-pointer overflow-ellipsis max-h-72 overflow-y-scroll break-all;
 	border: 1px solid white;
 	transition: border 0.3s ease-in;
 }
+.card::-webkit-scrollbar { 
+	display: none; 
+} 
 .card:hover{
 	border: 1px solid orange;
 }

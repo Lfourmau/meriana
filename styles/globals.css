@@ -16,7 +16,9 @@ a {
   color: inherit;
   text-decoration: none;
 }
-
+.markdown > * {
+  all: revert;
+}
 * {
   box-sizing: border-box;
 }

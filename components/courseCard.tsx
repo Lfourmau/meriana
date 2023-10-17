@@ -1,3 +1,4 @@
+import ReactMarkdown from "react-markdown"
 import styles from "../styles/CourseCard.module.css"
 
 export default function CourseCard(props){
@@ -5,7 +6,7 @@ export default function CourseCard(props){
 		<div className={styles.card} onClick={props.onClick}>
 			<div className={styles.mainInfos}>
 				<h2 className='font-bold mb-2'>{props.course.title}</h2>
-				<p className={styles.p}>{props.course.content}</p>
+				<ReactMarkdown className='markdown'>{props.course.content}</ReactMarkdown>
 			</div>
 			<div className={styles.thirdInfos}>
 				<p className={styles.p}>{props.course.level}</p>
